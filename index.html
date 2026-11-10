@@ -39,12 +39,12 @@
 </head>
 <body>
     <h1>MoneyMind 隐私政策</h1>
-    <p class="update-date">最后更新：2026年7月13日</p>
+    <p class="update-date">最后更新：2026年11月9日（适用于 MoneyMind 2.3 及以后版本）</p>
 
     <div class="section">
         <h2>1. 适用范围</h2>
         <p>本政策说明 MoneyMind 如何处理您的信息。MoneyMind 不要求注册账号，不接入银行卡，不使用广告、第三方分析或跨 App 行为追踪。</p>
-        <p><strong>账本默认保存在设备本地。联网 AI 默认关闭；只有在您选择服务商、填写自己的 API Key、阅读说明并明确授权后，您主动使用 AI 功能所需的数据才会从设备直接发送给该服务商。</strong></p>
+        <p><strong>账本默认保存在设备本地。联网 AI 默认关闭；只有在您阅读说明并明确授权后，您主动使用 AI 功能所需的数据才会发送出设备：使用内置 AI 时经 MoneyMind AI 中转服务转发给模型服务商；使用自己的 API Key 时从设备直接发送给您选择的服务商。</strong></p>
     </div>
 
     <div class="section">
@@ -69,37 +69,48 @@
     </div>
 
     <div class="section">
-        <h2>4. 使用自己的云端 AI（BYOK）</h2>
-        <p>MoneyMind 2.1 不提供或中转官方 AI 网关。联网 AI 使用您自己的服务商账号、API Key 和额度，请求从设备通过 HTTPS 直接发送给您选择的服务商。API Key 保存在 iOS 钥匙串中，不写入账本或 MoneyMind 导出的备份文件。</p>
-        <p>在您明确授权并主动使用相应功能时，服务商可能收到：</p>
+        <h2>4. 云端 AI</h2>
+        <p>MoneyMind 提供两种连接方式，均需您先明确授权；更换服务商或切换连接方式后会再次征求授权。</p>
+        <h3>4.1 内置 AI（MoneyMind AI 中转服务）</h3>
+        <p>未填写自己的 API Key 时，App 使用内置 AI。App 内不包含任何模型服务商密钥；请求通过 HTTPS 发送到 MoneyMind AI 中转服务（中国大陆用户由位于中国大陆的阿里云服务器处理，其他地区由 Cloudflare 全球网络处理），再由中转服务转发给模型服务商 DeepSeek，DeepSeek 不可用时转发给阿里云通义千问（Qwen）。</p>
         <ul>
-            <li>语音转写文字、您选择或通过快捷指令提交的截图、截图 OCR 文字，以及近期分类纠正记录，用于识别记账信息</li>
-            <li>您的问题、月度汇总，以及最多 40 笔近期账单的日期、分类、金额和备注，用于账本问答或消费洞察</li>
-            <li>您的 API Key，作为请求鉴权信息；服务商可据此把请求关联到您的服务商账号</li>
+            <li>中转服务收到：您本次请求的文字内容（见下方 4.3），以及 Apple App Store 签名的购买凭证（AppTransaction，以及 Pro 购买或订阅的交易凭证）。凭证用于确认请求来自正版 MoneyMind 并区分免费与 Pro 的每日次数，不包含您的姓名、Apple 账户或支付信息。</li>
+            <li>中转服务<strong>不保存请求正文和 AI 回复</strong>，只保存按日计数的匿名额度记录（由凭证编号单向哈希生成，约 2 天后自动过期），不记录访问日志中的请求内容。</li>
+            <li>内置 AI 只发送文字。截图先在设备上完成文字识别（OCR），只发送识别出的文字，不上传图片。</li>
         </ul>
-        <p>不同服务商的数据保存地点、期限、模型改进设置和删除方式由该服务商及您的服务商账号设置决定。MoneyMind 开发者不经由自有服务器接收或保存这些请求正文。更换服务商或切换连接模式后，MoneyMind 会要求您重新授权。</p>
+        <h3>4.2 使用自己的 API Key（BYOK）</h3>
+        <p>您也可以在“AI 智能”中填写自己的服务商 API Key。此时请求从设备通过 HTTPS 直接发送给您选择的服务商，不经过 MoneyMind 中转服务；API Key 保存在 iOS 钥匙串中，不写入账本或导出的备份文件。服务商可据此把请求关联到您的服务商账号。</p>
+        <h3>4.3 可能发送的内容</h3>
+        <p>在您授权并主动使用相应功能时，可能发送：</p>
+        <ul>
+            <li>语音转写文字、截图 OCR 文字（BYOK 且服务商支持图片时也可能包括您提交的截图），以及近期分类纠正记录，用于识别记账信息</li>
+            <li>您的问题、月度汇总，以及最多 40 笔近期账单的日期、分类、金额和备注，用于账本问答或消费洞察</li>
+        </ul>
+        <p>模型服务商对数据的保存地点、期限和删除方式以其政策为准。</p>
     </div>
 
     <div class="section">
-        <h2>5. 可选 AI 服务商</h2>
-        <p>MoneyMind 当前支持以下自带 Key 的服务商。使用前请阅读您选择的服务商政策：</p>
+        <h2>5. AI 服务商</h2>
+        <p>内置 AI 使用 DeepSeek（备用：阿里云通义千问）；自带 Key 可选择智谱 AI、DeepSeek、OpenAI 或 Google Gemini。相关政策：</p>
         <ul>
             <li>智谱 AI：<a href="https://docs.bigmodel.cn/cn/terms/privacy-policy">隐私政策</a></li>
             <li>DeepSeek：<a href="https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html">隐私政策</a></li>
             <li>OpenAI：<a href="https://openai.com/policies/privacy-policy/">隐私政策</a></li>
             <li>Google Gemini：<a href="https://policies.google.com/privacy">隐私政策</a></li>
+            <li>阿里云通义千问（Qwen / 百炼）：<a href="https://help.aliyun.com/document_detail/2705226.html">隐私政策</a></li>
+            <li>Cloudflare（内置 AI 中转网络）：<a href="https://www.cloudflare.com/privacypolicy/">隐私政策</a></li>
         </ul>
         <p>某些服务商可能在您所在国家或地区之外处理数据。请勿在 AI 输入或截图中提交完成记账功能不需要的个人信息。</p>
     </div>
 
     <div class="section">
         <h2>6. App 内购买</h2>
-        <p>Pro 购买和订阅由 Apple App Store 处理。MoneyMind 使用 StoreKit 在设备上读取已验证的购买权益，不接收您的支付卡号或银行账户信息。年度订阅可在 Apple 账户的订阅设置中管理或取消。</p>
+        <p>Pro 购买和订阅由 Apple App Store 处理。MoneyMind 使用 StoreKit 在设备上读取已验证的购买权益；使用内置 AI 时，Apple 签名的交易凭证会发送给中转服务以确认 Pro 次数。MoneyMind 不接收您的支付卡号或银行账户信息。年度订阅可在 Apple 账户的订阅设置中管理或取消。</p>
     </div>
 
     <div class="section">
         <h2>7. 数据用途与追踪</h2>
-        <p>发送给您所选 AI 服务商的财务信息、用户内容和图片，仅用于完成您请求的记账识别、账本问答或个性化消费洞察。由于 API Key 对应您的服务商账号，这些数据可能与该账号关联。</p>
+        <p>发送给中转服务或 AI 服务商的财务信息和用户内容，仅用于完成您请求的记账识别、账本问答或个性化消费洞察，不用于其他目的。使用自己的 API Key 时，这些数据可能与您的服务商账号关联。</p>
         <p>MoneyMind 不出售或出租数据，不展示广告，不把数据用于广告画像，也不进行跨 App 或跨网站追踪。</p>
     </div>
 
@@ -107,16 +118,16 @@
         <h2>8. 安全与您的选择</h2>
         <ul>
             <li>本地数据位于 iOS 沙盒和 App Group 容器中，并受系统安全机制保护。</li>
-            <li>联网 AI 请求使用 HTTPS；API Key 存储在 iOS 钥匙串中。</li>
+            <li>联网 AI 请求全程使用 HTTPS；App 内不包含模型服务商密钥，您自己的 API Key 存储在 iOS 钥匙串中。</li>
             <li>您可以拒绝麦克风、语音识别和通知权限，继续使用其他功能。</li>
-            <li>您可以在“AI 智能”中撤回当前服务商授权或清空 API Key，撤回后继续使用本地记账和本地识别。</li>
+            <li>您可以在“AI 智能”中撤回 AI 授权或清空 API Key，撤回后继续使用本地记账和本地识别。</li>
         </ul>
     </div>
 
     <div class="section">
         <h2>9. 导出与删除</h2>
         <p>您可以在设置中导出 CSV 或完整备份，也可以删除单笔交易或清除账本、预算、定期账单及本地 AI 辅助记录。您另行保存的导出文件需要自行删除。</p>
-        <p>卸载 MoneyMind 会删除 App 容器内的数据。为了确保服务商侧数据和 API Key 按您的要求处理，请同时使用服务商账号提供的管理或删除入口，并在卸载前于 MoneyMind 中清空 Key。</p>
+        <p>卸载 MoneyMind 会删除 App 容器内的数据。中转服务不保存请求内容，匿名计数会自动过期。使用自己的 API Key 时，请通过服务商账号提供的入口管理或删除数据，并在卸载前于 MoneyMind 中清空 Key。</p>
     </div>
 
     <div class="section">
@@ -128,6 +139,21 @@
         <h2>11. 政策更新与联系</h2>
         <p>我们可能随功能和法律要求更新本政策，并在本页面标注新的更新日期。</p>
         <p>如有隐私问题，请联系：<a href="mailto:805151033@qq.com">805151033@qq.com</a></p>
+    </div>
+
+    <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+
+    <div class="section" lang="en">
+        <h2>English summary</h2>
+        <p>Last updated: November 9, 2026 (MoneyMind 2.3 and later).</p>
+        <ul>
+            <li>No account, no bank linking, no ads, no third-party analytics and no cross-app tracking. Your ledger stays on your device, with optional iCloud sync and exports you control.</li>
+            <li>Cloud AI is off until you agree. <strong>Built-in AI</strong> sends the text of your request over HTTPS to the MoneyMind AI relay (Alibaba Cloud in mainland China, Cloudflare elsewhere), which forwards it to DeepSeek, or to Alibaba Cloud Qwen as a fallback. The relay also receives Apple-signed purchase receipts to check your daily allowance. It does not store request or reply content; it keeps only an anonymous per-day counter that expires after about two days. Screenshots are read on your device and only the recognized text is sent.</li>
+            <li>With <strong>your own API key</strong>, requests go directly from your device to the provider you chose (Zhipu, DeepSeek, OpenAI or Google Gemini). Your key is kept in the iOS Keychain.</li>
+            <li>What may be sent: transcribed voice text, screenshot text, recent category corrections, your question, a monthly summary and up to 40 recent entries (date, category, amount, note). It is used only to answer your request.</li>
+            <li>Purchases are handled by Apple; we never receive card or bank details. You can withdraw AI consent or delete your data in the app at any time.</li>
+            <li>Contact: <a href="mailto:805151033@qq.com">805151033@qq.com</a></li>
+        </ul>
     </div>
 
     <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
